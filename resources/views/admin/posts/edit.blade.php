@@ -54,6 +54,31 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <h5 class="mt-5">Tag</h5>
+
+            @foreach ($tags as $tag)
+                <span class="d-inline-block mr-3">
+
+                    <!-- gestione checkbox: al primo caricamento della pagina edit stampo checked perché non ci sono errori nel form e l'id del tag è presente -->
+                    <!-- se ci sono errori e se l'old contiene l'id stampo ancora checked -->
+                    <input type="checkbox" 
+                        name="tags[]" 
+                        id="tag{{ $loop->iteration }}"
+                        value="{{ $tag->id }}"
+
+                        @if (!$errors->any() && $post->tags->contains($tag->id))
+                            checked
+                        @elseif ($errors->any() && in_array($tag->id, old('tags', [])))
+                            checked
+                        @endif
+                    > 
+                    
+                    <label for="{{ $loop->iteration }}">{{ $tag->name }}</label>
+                </span>
+            @endforeach
+        </div>
+
         <button type="submit" class="btn btn-success mt-4">submit</button>
         <button type="reset" class="btn btn-secondary mt-4">reset</button>
     </form>

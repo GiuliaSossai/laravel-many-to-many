@@ -42,7 +42,7 @@
         <div class="mb-3">
             <label for="category_id" class="form-label mt-5">Inserisci una categoria</label>
             <select class="form-control" name="category_id" id="category_id">
-            <option value="">scegli una categoria:</option>
+            <option value="">scegli una categoria</option>
             @foreach ($categories as $category)
                 <option 
                     @if($category->id == old('category_id')) selected @endif 
@@ -65,7 +65,7 @@
                     <input type="checkbox" 
                         name="tags[]" 
                         id="tag{{ $loop->iteration }}"
-                        value="tag{{ $tag->id }}"
+                        value="{{ $tag->id }}"
                         @if(in_array($tag->id, old('tags', []))) checked @endif
                     >
                     <!-- il for della label si riferisce all'id dell'input -->
@@ -77,9 +77,6 @@
         <button type="submit" class="btn btn-success mt-4">submit</button>
         <button type="reset" class="btn btn-secondary mt-4">reset</button>
     </form>
-
-    
-        
     
 </div>
 @endsection

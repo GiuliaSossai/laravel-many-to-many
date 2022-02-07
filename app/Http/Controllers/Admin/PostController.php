@@ -102,10 +102,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
+        $tags = Tag::all();
         
         $post = Post::find($id);
         if($post){
-           return view('admin.posts.edit', compact('post', 'categories')); 
+           return view('admin.posts.edit', compact('post', 'categories', 'tags')); 
         }
         abort(404, 'Il post che hai cercato non esiste');
     }
@@ -140,6 +141,13 @@ class PostController extends Controller
         }
 
         $post->update($data);
+
+        //dopo update faccio sync e detach
+        if(array_key_exists('tags', $data)){
+            $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->detach();
+        }
 
         return redirect()->route('admin.posts.show', $post);
 
