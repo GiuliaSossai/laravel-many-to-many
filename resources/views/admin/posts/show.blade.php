@@ -7,6 +7,12 @@
    @if ($post->category)
        <h5 class="my-4">categoria: {{ $post->category->name }}</h5>
    @endif
+
+   @forelse ($post->tags as $tag)
+        <span class="badge bg-success text-white mb-3">{{ $tag->name }}</span>
+    @empty
+        -   
+    @endforelse
    
    <p>{{ $post->content }}</p>
 

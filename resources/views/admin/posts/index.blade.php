@@ -14,6 +14,7 @@
                 <th scope="col">id</th>
                 <th scope="col">titolo</th>
                 <th scope="col">testo</th>
+                <th scope="col">tag</th>
                 <th scope="col" colspan="4">categoria</th>
                 <!-- <th scope="col">slug</th> -->
             </tr>
@@ -24,6 +25,13 @@
                     <th scope="row">{{ $post->id }}</th>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->content }}</td>
+                    <td>
+                        @forelse ($post->tags as $tag)
+                        <span class="badge bg-success text-white">{{ $tag->name }}</span>
+                        @empty
+                            -   
+                        @endforelse
+                    </td>
                     <td>
                         @if ($post->category)
                             {{$post->category->name}}

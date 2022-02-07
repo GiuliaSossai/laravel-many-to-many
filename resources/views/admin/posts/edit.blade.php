@@ -43,7 +43,7 @@
         <div class="mb-3">
             <label for="category_id" class="form-label mt-5">Inserisci una categoria</label>
             <select class="form-control" name="category_id" id="category_id">
-            <option>scegli una categoria:</option>
+            <option value="">scegli una categoria:</option>
             @foreach ($categories as $category)
                 <option 
                     @if($category->id == old('category_id', $post->category_id)) selected @endif 

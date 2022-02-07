@@ -42,7 +42,7 @@
         <div class="mb-3">
             <label for="category_id" class="form-label mt-5">Inserisci una categoria</label>
             <select class="form-control" name="category_id" id="category_id">
-            <option>scegli una categoria:</option>
+            <option value="">scegli una categoria:</option>
             @foreach ($categories as $category)
                 <option 
                     @if($category->id == old('category_id')) selected @endif 
@@ -51,6 +51,27 @@
                 </option>
             @endforeach
             </select>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mt-5">Tag</h5>
+
+            @foreach ($tags as $tag)
+                <span class="d-inline-block mr-3">
+                    <!-- checkbox fanno tutti parte dello stesso array quindi uso tags[] come name-->
+                    <!-- il value deve corrispondere all'id del tag -->
+                    <!-- dentro loop foreach posso usare variabile $loop con le sue proprietà tra cui iteration -->
+                    <!-- se sbaglio a compilare il form e faccio submit, non voglio perdere le info della checkbox: uso old(). quindi devo far stampare la classe checked solo se c'era l'old; devo anche dare un valore di default, ovvero un array vuoto -->
+                    <input type="checkbox" 
+                        name="tags[]" 
+                        id="tag{{ $loop->iteration }}"
+                        value="tag{{ $tag->id }}"
+                        @if(in_array($tag->id, old('tags', []))) checked @endif
+                    >
+                    <!-- il for della label si riferisce all'id dell'input -->
+                    <label for="{{ $loop->iteration }}">{{ $tag->name }}</label>
+                </span>
+            @endforeach
         </div>
 
         <button type="submit" class="btn btn-success mt-4">submit</button>
